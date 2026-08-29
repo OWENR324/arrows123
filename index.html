@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>IT-Мастер Иркутск | 3D Премиум</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <script src="scroll.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(37, 99, 235, 0.15);
+            border-radius: 10px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4fa;
+            color: #0b1120;
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #three-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== ШАПКА ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 14px 24px;
+            background: rgba(240, 244, 250, 0.2);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(-100%);
+            animation: headerIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+
+        @keyframes headerIn {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .header.scrolled {
+            background: rgba(240, 244, 250, 0.85);
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.03);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: clamp(18px, 2.5vw, 26px);
+            background: linear-gradient(135deg, #2563eb, #7c3aed, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            font-weight: 300;
+            -webkit-text-fill-color: rgba(11, 17, 32, 0.2);
+            background: none;
+        }
+
+        .header-phone {
+            font-weight: 600;
+            font-size: clamp(14px, 1.6vw, 17px);
+            color: #0b1120;
+            text-decoration: none;
+            padding: 6px 18px;
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: 0.4s;
+            white-space: nowrap;
+        }
+
+        .header-phone:hover {
+            background: rgba(37, 99, 235, 0.06);
+            border-color: rgba(37, 99, 235, 0.12);
+            transform: scale(1.02);
+        }
+
+        /* ===== ГЕРОЙ ===== */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 130px 0 40px;
+        }
+
+        .hero-content {
+            max-width: 820px;
+            opacity: 0;
+            animation: heroReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+        }
+
+        @keyframes heroReveal {
+            0% { opacity: 0; transform: translateY(20px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 6px 20px;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: clamp(10px, 1.2vw, 13px);
+            color: #2563eb;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 7vw, 62px);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 18px;
+            letter-spacing: -0.8px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #2563eb, #7c3aed, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: rgba(11, 17, 32, 0.5);
+            max-width: 560px;
+            font-weight: 400;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            padding: clamp(12px, 1.8vw, 16px) clamp(32px, 4vw, 44px);
+            border-radius: 60px;
+            text-decoration: none;
+            transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            font-size: clamp(14px, 1.6vw, 16px);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #0b1120;
+            color: white;
+            box-shadow: 0 4px 24px rgba(11, 17, 32, 0.08);
+            flex: 1 1 auto;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(11, 17, 32, 0.12);
+        }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #0b1120;
+            backdrop-filter: blur(8px);
+            flex: 1 1 auto;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* ===== СЕКЦИИ ===== */
+        .section {
+            position: relative;
+            z-index: 1;
+            padding: clamp(40px, 6vw, 70px) 0;
+        }
+
+        .section-title {
+            font-size: clamp(30px, 5vw, 44px);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title .highlight {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: rgba(11, 17, 32, 0.35);
+            max-width: 650px;
+            margin: 0 auto clamp(28px, 4vw, 48px);
+            font-size: clamp(16px, 2vw, 18px);
+            font-weight: 300;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        /* ===== СТАТИСТИКА ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 24px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.4s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .stat-item.visible { opacity: 1; transform: translateY(0); }
+        .stat-item:hover { background: rgba(255, 255, 255, 0.35); }
+
+        .stat-number {
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 800;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: clamp(13px, 1.2vw, 15px);
+            color: rgba(11, 17, 32, 0.4);
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           СЛАЙДЕР — реальные работы
+           ============================================================ */
+        .slider-section {
+            position: relative;
+            z-index: 1;
+            padding: clamp(30px, 5vw, 50px) 0;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.03);
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slider-slide img,
+        .slider-slide video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-slide video {
+            background: #0b1120;
+        }
+
+        .slider-slide .slide-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 24px 18px;
+            background: linear-gradient(0deg, rgba(11, 17, 32, 0.5) 0%, transparent 100%);
+            color: white;
+            font-size: clamp(14px, 1.4vw, 17px);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            pointer-events: none;
+        }
+
+        .slider-slide .slide-label span {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 4px 16px;
+            border-radius: 60px;
+            font-size: clamp(11px, 1vw, 13px);
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Кнопки слайдера */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            color: #0b1120;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .slider-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .slider-btn.prev {
+            left: 16px;
+        }
+        .slider-btn.next {
+            right: 16px;
+        }
+
+        /* Точки (индикаторы) */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px 0 10px;
+        }
+
+        .slider-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(11, 17, 32, 0.15);
+            border: none;
+            cursor: pointer;
+            transition: 0.4s;
+            padding: 0;
+        }
+
+        .slider-dots .dot.active {
+            background: #2563eb;
+            transform: scale(1.2);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        .slider-dots .dot:hover {
+            background: rgba(37, 99, 235, 0.4);
+        }
+
+        /* ===== УСЛУГИ ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: perspective(800px) rotateY(15deg) translateX(-30px) scale(0.94);
+            will-change: transform, opacity;
+        }
+
+        .service-card.visible { opacity: 1; transform: perspective(800px) rotateY(0deg) translateX(0) scale(1); }
+        .service-card:nth-child(2).visible { transition-delay: 0.06s; }
+        .service-card:nth-child(3).visible { transition-delay: 0.12s; }
+        .service-card:nth-child(4).visible { transition-delay: 0.18s; }
+        .service-card:nth-child(5).visible { transition-delay: 0.24s; }
+        .service-card:nth-child(6).visible { transition-delay: 0.30s; }
+
+        .service-card:hover {
+            transform: perspective(800px) rotateY(0deg) translateY(-6px) scale(1.01);
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
+        }
+
+        .service-card .card-3d {
+            width: 100%;
+            height: clamp(160px, 20vw, 210px);
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card .card-3d canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+
+        .service-body {
+            padding: 20px 22px 26px;
+        }
+
+        .service-body h3 {
+            font-size: clamp(17px, 2vw, 19px);
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #0b1120;
+        }
+
+        .service-body p {
+            color: rgba(11, 17, 32, 0.4);
+            font-size: clamp(14px, 1.4vw, 15px);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .service-body .price-tag {
+            margin-top: 12px;
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.06);
+            padding: 4px 16px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: clamp(14px, 1.4vw, 15px);
+            color: #2563eb;
+        }
+
+        /* ===== ЦЕНЫ ===== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .pricing-item {
+            padding: 24px 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            text-align: center;
+            transition: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            will-change: transform, opacity;
+        }
+
+        .pricing-item.visible { opacity: 1; transform: translateY(0) scale(1); }
+        .pricing-item:hover { background: rgba(255, 255, 255, 0.4); transform: translateY(-3px); }
+
+        .pricing-item h4 {
+            font-size: clamp(13px, 1.4vw, 15px);
+            font-weight: 500;
+            color: rgba(11, 17, 32, 0.4);
+            margin-bottom: 4px;
+        }
+
+        .pricing-item .price {
+            font-size: clamp(26px, 4vw, 32px);
+            font-weight: 800;
+            color: #0b1120;
+        }
+
+        .pricing-item .price small {
+            font-size: clamp(13px, 1.4vw, 15px);
+            font-weight: 400;
+            color: rgba(11, 17, 32, 0.25);
+        }
+
+        .pricing-item .note {
+            font-size: clamp(12px, 1.2vw, 13px);
+            color: rgba(11, 17, 32, 0.3);
+            margin-top: 4px;
+        }
+
+        .pricing-item .badge-self {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: clamp(10px, 1vw, 11px);
+            background: rgba(37, 99, 235, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.06);
+            padding: 2px 14px;
+            border-radius: 60px;
+            color: #2563eb;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        /* ===== ОТЗЫВЫ ===== */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .review-item {
+            padding: 28px 24px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(20px);
+            will-change: transform, opacity;
+        }
+
+        .review-item.visible { opacity: 1; transform: translateY(0); }
+        .review-item:hover { background: rgba(255, 255, 255, 0.35); }
+
+        .review-item .stars {
+            color: #f59e0b;
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .review-item blockquote {
+            font-size: clamp(15px, 1.4vw, 16px);
+            font-weight: 300;
+            color: rgba(11, 17, 32, 0.6);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .review-item .review-author {
+            margin-top: 14px;
+            font-weight: 600;
+            font-size: clamp(14px, 1.2vw, 15px);
+            color: #0b1120;
+        }
+
+        .review-item .review-company {
+            font-size: 13px;
+            color: rgba(11, 17, 32, 0.3);
+        }
+
+        /* ===== КЛИЕНТЫ ===== */
+        .clients-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .client-item {
+            flex: 1 1 160px;
+            padding: 28px 18px;
+            border-radius: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(30px) rotate(-1deg);
+            will-change: transform, opacity;
+        }
+
+        .client-item.visible { opacity: 1; transform: translateY(0) rotate(0deg); }
+        .client-item:hover { background: rgba(255, 255, 255, 0.35); }
+
+        .client-item h4 {
+            font-size: clamp(26px, 4vw, 30px);
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .client-item p {
+            color: rgba(11, 17, 32, 0.4);
+            font-weight: 300;
+            font-size: clamp(14px, 1.4vw, 15px);
+        }
+
+        /* ===== ДОКУМЕНТЫ ===== */
+        .docs-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .docs-list span {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: clamp(12px, 1.5vw, 14px) clamp(24px, 3vw, 34px);
+            border-radius: 60px;
+            font-weight: 500;
+            color: rgba(11, 17, 32, 0.5);
+            font-size: clamp(13px, 1.4vw, 15px);
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: scale(0.85) rotate(-2deg);
+            will-change: transform, opacity;
+        }
+
+        .docs-list span.visible { opacity: 1; transform: scale(1) rotate(0deg); }
+        .docs-list span:hover { background: rgba(255, 255, 255, 0.4); color: #2563eb; transform: scale(1.04); }
+
+        /* ===== ФОРМА И КОНТАКТЫ ===== */
+        .fullwidth-section {
+            position: relative;
+            z-index: 1;
+            padding: clamp(40px, 6vw, 70px) 0;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .fullwidth-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .form-wrapper {
+            max-width: 620px;
+            margin: 0 auto 30px;
+            padding: 36px 32px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .form-wrapper.visible { opacity: 1; transform: translateY(0); }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .form-row label {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(11, 17, 32, 0.5);
+        }
+
+        .form-row input,
+        .form-row textarea {
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: #0b1120;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .form-row input:focus,
+        .form-row textarea:focus {
+            border-color: #2563eb;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.04);
+        }
+
+        .form-row textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-row .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .contacts-block {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 36px 32px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+            text-align: center;
+        }
+
+        .contacts-block.visible { opacity: 1; transform: translateY(0); }
+
+        .contacts-block .contact-phone {
+            font-size: clamp(30px, 4vw, 42px);
+            font-weight: 800;
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-block;
+            margin: 8px 0 14px;
+            letter-spacing: 0.5px;
+            transition: 0.4s;
+            word-break: break-all;
+        }
+
+        .contacts-block .contact-phone:hover {
+            color: #7c3aed;
+            transform: scale(1.02);
+        }
+
+        .contacts-block .contact-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: clamp(12px, 1.5vw, 20px);
+            font-size: clamp(15px, 1.4vw, 17px);
+            color: rgba(11, 17, 32, 0.4);
+            margin-top: 10px;
+        }
+
+        .contacts-block .contact-meta strong {
+            color: rgba(11, 17, 32, 0.5);
+            font-weight: 500;
+        }
+
+        .contacts-block .sub {
+            color: rgba(11, 17, 32, 0.3);
+            font-size: clamp(14px, 1.2vw, 16px);
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        /* ============================================================
+           АДАПТИВ
+           ============================================================ */
+        @media (min-width: 1200px) {
+            .hero-content {
+                margin: 0 auto;
+                text-align: center;
+            }
+            .hero p {
+                margin: 0 auto 32px;
+                text-align: center;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .section-title {
+                text-align: center;
+            }
+            .section-subtitle {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .stats-grid {
+                margin: 0 auto 40px;
+            }
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .reviews-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .clients-grid {
+                justify-content: center;
+            }
+            .docs-list {
+                justify-content: center;
+            }
+            .form-wrapper, .contacts-block {
+                max-width: 700px;
+                padding: 40px 36px;
+            }
+            .contacts-block .contact-meta {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 10px 16px; }
+            .hero { padding: 100px 0 20px; min-height: 90vh; align-items: flex-start; }
+            .hero-content { max-width: 78%; padding-right: 10px; text-align: left; }
+            .hero .badge { font-size: 8px; padding: 3px 12px; margin-bottom: 12px; display: inline-block; max-width: 100%; }
+            .hero h1 { font-size: clamp(24px, 5.5vw, 34px); line-height: 1.1; margin-bottom: 10px; }
+            .hero p { font-size: clamp(14px, 3vw, 16px); max-width: 100%; margin: 0 0 18px 0; text-align: left; }
+            .hero-actions { flex-direction: column; width: 100%; gap: 10px; }
+            .hero-actions .btn { font-size: 13px; padding: 12px 16px; width: 100%; justify-content: center; }
+            .services-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+            .service-card .card-3d { height: clamp(130px, 18vw, 170px); }
+            .service-body { padding: 14px 14px 18px; }
+            .service-body h3 { font-size: clamp(15px, 2vw, 17px); }
+            .pricing-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .pricing-item { padding: 18px 14px; }
+            .reviews-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+            .clients-grid { gap: 12px; }
+            .client-item { flex: 1 1 120px; padding: 20px 12px; }
+            .docs-list span { padding: 8px 16px; font-size: 12px; }
+            .section { padding: clamp(24px, 4vw, 35px) 0; }
+            .section-title { font-size: clamp(26px, 5vw, 32px); }
+            .section-subtitle { font-size: 15px; margin-bottom: 24px; }
+            .container { padding: 0 14px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .stat-item { padding: 16px 12px; }
+            .form-wrapper { padding: 24px 18px; margin: 0 auto 20px; }
+            .contacts-block { padding: 24px 18px; margin: 0 auto; }
+            .contacts-block .contact-phone { font-size: clamp(26px, 5vw, 34px); }
+
+            .slider-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+            .slider-btn.prev { left: 10px; }
+            .slider-btn.next { right: 10px; }
+            .slider-slide .slide-label {
+                padding: 14px 16px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header { padding: 8px 12px; }
+            .logo { font-size: 15px; }
+            .header-phone { font-size: 12px; padding: 4px 12px; }
+            .hero { padding: 90px 0 15px; min-height: 80vh; }
+            .hero-content { max-width: 82%; }
+            .hero h1 { font-size: clamp(21px, 5vw, 28px); }
+            .hero p { font-size: clamp(13px, 2.8vw, 15px); }
+            .hero-actions .btn { font-size: 12px; padding: 10px 14px; }
+            .services-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .pricing-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .reviews-grid { grid-template-columns: 1fr; gap: 12px; }
+            .service-card .card-3d { height: clamp(110px, 15vw, 150px); }
+            .pricing-item .price { font-size: 22px; }
+            .client-item { flex: 1 1 100px; padding: 16px 10px; }
+            .client-item h4 { font-size: 22px; }
+            .docs-list span { font-size: 11px; padding: 6px 12px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .stat-number { font-size: 24px; }
+            .form-wrapper { padding: 18px 14px; }
+            .contacts-block { padding: 18px 14px; }
+            .contacts-block .contact-phone { font-size: clamp(22px, 5vw, 28px); }
+            .contacts-block .contact-meta { font-size: 13px; gap: 6px 12px; }
+            .fullwidth-section { padding: clamp(24px, 4vw, 35px) 0; }
+            .fullwidth-section .container { padding: 0 10px; }
+            .section-title { font-size: clamp(22px, 5vw, 26px); }
+            .section-subtitle { font-size: 14px; }
+
+            .slider-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
+            .slider-btn.prev { left: 6px; }
+            .slider-btn.next { right: 6px; }
+            .slider-slide .slide-label {
+                padding: 10px 12px 10px;
+                font-size: 12px;
+            }
+            .slider-slide .slide-label span {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+        }
+
+        @supports (padding: max(0px)) {
+            .header {
+                padding-top: max(10px, env(safe-area-inset-top));
+                padding-left: max(16px, env(safe-area-inset-left));
+                padding-right: max(16px, env(safe-area-inset-right));
+            }
+            .hero {
+                padding-top: max(90px, env(safe-area-inset-top) + 60px);
+            }
+        }
+
+        @supports (padding: max(0px)) and (width: 393px) {
+            .hero h1 { font-size: 28px !important; }
+            .hero p { font-size: 15px !important; }
+            .hero .badge { font-size: 10px !important; }
+            .hero-actions .btn { font-size: 13px !important; padding: 12px 18px !important; }
+            .services-grid { gap: 12px !important; }
+            .service-card .card-3d { height: 155px !important; }
+            .section-title { font-size: 26px !important; }
+            .stat-number { font-size: 26px !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 3D ФОН ===== -->
+    <div id="three-bg"></div>
+
+    <!-- ===== ШАПКА ===== -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <div class="logo">IT-Мастер <span>| Иркутск</span></div>
+            <a href="tel:89087777721" class="header-phone">📞 8 (908) 777-77-21</a>
+        </div>
+    </header>
+
+    <!-- ===== ГЕРОЙ ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">✦ Выездной IT-специалист • Самозанятый</div>
+                <h1>Монтаж, ремонт и настройка <span class="highlight">сетевого</span> оборудования</h1>
+                <p>Работаю с юридическими и физическими лицами. Договоры, акты, счета и чеки. В Иркутске и области.</p>
+                <div class="hero-actions">
+                    <a href="tel:89087777721" class="btn btn-primary">📞 Позвонить</a>
+                    <a href="#services" class="btn btn-ghost">Все услуги</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== СТАТИСТИКА ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">Выполненных проектов</div></div>
+                <div class="stat-item"><div class="stat-number">30+</div><div class="stat-label">Довольных клиентов</div></div>
+                <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Положительных отзывов</div></div>
+                <div class="stat-item"><div class="stat-number">5 лет</div><div class="stat-label">Опыта в IT</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         СЛАЙДЕР — РЕАЛЬНЫЕ РАБОТЫ
+         ============================================================ -->
+    <section class="slider-section" id="works">
+        <div class="container">
+            <h2 class="section-title" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;">Мои <span class="highlight">реальные работы</span></h2>
+            <p class="section-subtitle" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;">Фото и видео с объектов — всё, что я сделал своими руками</p>
+
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderTrack">
+                    <!-- ===== СЛАЙД 1 ===== -->
+                    <div class="slider-slide">
+                        <img src="фото видео/усилитель сот связи.jpg" alt="Установка усилителя сотовой связи" loading="lazy" />
+                        <div class="slide-label"><span>🔧 Установка усилителя сотовой связи • 2025</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 3 ===== -->
+                    <div class="slider-slide">
+                        <img src="фото видео/серверная аль дента 2.jpg" alt="Настройка сервера" loading="lazy" />
+                        <div class="slide-label"><span>📹 Настройка сервера в офисе • 2025</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 4 ===== -->
+                    <div class="slider-slide">
+                        <img src="фото видео/розетка для интернета.jpg" alt="Розетка RJ-45" loading="lazy" />
+                        <div class="slide-label"><span>🔌 Монтаж розетки RJ-45 • 2024</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 5 ===== -->
+                    <div class="slider-slide">
+                        <video muted loop playsinline preload="metadata">
+                            <source src="фото видео/рабочее место для админа.mp4" type="video/mp4" />
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                        <div class="slide-label"><span>📡 Рабочее место для администратора • 2025</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 6 ===== -->
+                    <div class="slider-slide">
+                        <video muted loop playsinline preload="metadata">
+                            <source src="фото видео/прокладка скс.mp4" type="video/mp4" />
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                        <div class="slide-label"><span>🔧 Прокладка СКС • 2025</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 7 ===== -->
+                    <div class="slider-slide">
+                        <img src="фото видео/настройка маршрутизатора.jpg" alt="Настройка маршрутизатора" loading="lazy" />
+                        <div class="slide-label"><span>🏠 Настройка маршрутизатора Wi‑Fi 6 • 2025</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 8 ===== -->
+                    <div class="slider-slide">
+                        <img src="фото видео/монтаж сереврной 2.jpg" alt="Монтаж серверной" loading="lazy" />
+                        <div class="slide-label"><span>🖥️ Монтаж серверной • 2025</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 9 ===== -->
+                    <div class="slider-slide">
+                        <img src="фото видео/замер скорости инета.jpg" alt="Замер скорости интернета" loading="lazy" />
+                        <div class="slide-label"><span>📊 Замер скорости интернета • 2025</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 10 ===== -->
+                    <div class="slider-slide">
+                        <img src="фото видео/демонтаж камер.jpg" alt="Демонтаж видеокамер" loading="lazy" />
+                        <div class="slide-label"><span>🔧 Демонтаж видеокамер • 2025</span></div>
+                    </div>
+
+                    <!-- ===== СЛАЙД 11 ===== -->
+                    <div class="slider-slide">
+                        <img src="фото видео/демонтаж серверной оранж.jpg" alt="Демонтаж серверной" loading="lazy" />
+                        <div class="slide-label"><span>🖥️ Демонтаж серверной • 2025</span></div>
+                    </div>
+                </div>
+
+                <!-- Кнопки -->
+                <button class="slider-btn prev" id="sliderPrev" aria-label="Назад">‹</button>
+                <button class="slider-btn next" id="sliderNext" aria-label="Вперед">›</button>
+            </div>
+
+            <!-- Точки -->
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+    </section>
+
+    <!-- ===== УСЛУГИ ===== -->
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section-title" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;">Мои <span class="highlight">услуги</span></h2>
+            <p class="section-subtitle" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;">3D-визуализация оборудования, с которым я работаю</p>
+            <div class="services-grid">
+                <div class="service-card" data-model="router"><div class="card-3d"></div><div class="service-body"><h3>🌐 Маршрутизация</h3><p>MikroTik, Cisco, роутеры, коммутаторы. Настройка, монтаж.</p><span class="price-tag">от 1 500 ₽</span></div></div>
+                <div class="service-card" data-model="server"><div class="card-3d"></div><div class="service-body"><h3>🧰 Серверное оборудование</h3><p>Установка, настройка, ремонт серверов. Корпоративное железо.</p><span class="price-tag">от 3 000 ₽</span></div></div>
+                <div class="service-card" data-model="switch"><div class="card-3d"></div><div class="service-body"><h3>🔌 Коммутация & СКС</h3><p>Обжим, оптоволокно, настройка коммутаторов, IP-телефония.</p><span class="price-tag">от 1 200 ₽</span></div></div>
+                <div class="service-card" data-model="camera"><div class="card-3d"></div><div class="service-body"><h3>📹 Видеонаблюдение</h3><p>Монтаж и настройка камер, системы безопасности любой сложности.</p><span class="price-tag">от 2 000 ₽</span></div></div>
+                <div class="service-card" data-model="pc"><div class="card-3d"></div><div class="service-body"><h3>🖥️ Ремонт ПК</h3><p>Диагностика, замена комплектующих, принтеры, сканеры, МФУ.</p><span class="price-tag">от 1 000 ₽</span></div></div>
+                <div class="service-card" data-model="accesspoint"><div class="card-3d"></div><div class="service-body"><h3>📶 Точки доступа</h3><p>Установка и настройка Wi‑Fi, беспроводные сети любой сложности.</p><span class="price-tag">от 1 500 ₽</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ЦЕНЫ ===== -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;">💰 Цены для <span class="highlight">юридических лиц</span></h2>
+            <p class="section-subtitle" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;">Работаю как самозанятый — полный пакет документов</p>
+            <div class="pricing-grid">
+                <div class="pricing-item"><h4>Выезд специалиста</h4><div class="price">1 500 <small>₽</small></div><div class="note">диагностика + консультация</div><span class="badge-self">Самозанятый</span></div>
+                <div class="pricing-item"><h4>Монтаж / Демонтаж</h4><div class="price">от 2 000 <small>₽</small></div><div class="note">за единицу оборудования</div><span class="badge-self">Акт выполненных работ</span></div>
+                <div class="pricing-item"><h4>Настройка сети</h4><div class="price">от 3 500 <small>₽</small></div><div class="note">роутеры, коммутаторы, Wi‑Fi</div><span class="badge-self">Договор + счёт</span></div>
+                <div class="pricing-item"><h4>Прокладка СКС</h4><div class="price">от 4 000 <small>₽</small></div><div class="note">за точку + материалы</div><span class="badge-self">Чек онлайн</span></div>
+                <div class="pricing-item"><h4>Ремонт ПК / сервера</h4><div class="price">от 1 500 <small>₽</small></div><div class="note">диагностика + работа</div><span class="badge-self">Гарантия</span></div>
+                <div class="pricing-item"><h4>IP-телефония / Видео</h4><div class="price">от 3 000 <small>₽</small></div><div class="note">за камеру / телефон</div><span class="badge-self">Самозанятый</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ОТЗЫВЫ ===== -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;">Отзывы <span class="highlight">клиентов</span></h2>
+            <p class="section-subtitle" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;">Что говорят о моей работе</p>
+            <div class="reviews-grid">
+                <div class="review-item"><div class="stars">★★★★★</div><blockquote>«Быстро настроил серверную, всё работает как часы. Отличный специалист, всем рекомендую!»</blockquote><div class="review-author">Алексей С.</div><div class="review-company">ООО «Байкал-Сервис»</div></div>
+                <div class="review-item"><div class="stars">★★★★★</div><blockquote>«Помог с монтажом видеонаблюдения в офисе. Сделал всё аккуратно, быстро и недорого.»</blockquote><div class="review-author">Екатерина М.</div><div class="review-company">Салон красоты «Люкс»</div></div>
+                <div class="review-item"><div class="stars">★★★★★</div><blockquote>«Настроил домашнюю сеть и Wi‑Fi, теперь всё летает. Профессиональный подход.»</blockquote><div class="review-author">Дмитрий К.</div><div class="review-company">Частный клиент</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== КЛИЕНТЫ ===== -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;">Работаю с <span class="highlight">юр. и физ.</span> лицами</h2>
+            <p class="section-subtitle" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;">Полный пакет документов: договор, акт, счёт, чек</p>
+            <div class="clients-grid">
+                <div class="client-item"><h4>🏢 Юр. лица</h4><p>Договор, счёт, акты. Работаем с НДС и без.</p></div>
+                <div class="client-item"><h4>👤 Физ. лица</h4><p>Наличный и безналичный расчёт. Чек и гарантия.</p></div>
+                <div class="client-item"><h4>📄 Документы</h4><p>Всегда готовлю договор, акт, счёт и чек.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ДОКУМЕНТЫ ===== -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;">📍 Иркутск и <span class="highlight">область</span></h2>
+            <p class="section-subtitle" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;">Выезжаю по городу и пригороду. Всегда на связи.</p>
+            <div class="docs-list">
+                <span>📄 Договор</span>
+                <span>🧾 Акт выполненных работ</span>
+                <span>💰 Счёт на оплату</span>
+                <span>🧾 Чек (онлайн-касса)</span>
+                <span>📦 Гарантия</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ФОРМА И КОНТАКТЫ ===== -->
+    <section class="fullwidth-section">
+        <div class="container">
+            <h2 class="section-title" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;">Оставьте <span class="highlight">заявку</span></h2>
+            <p class="section-subtitle" style="opacity:0; animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;">Я свяжусь с вами в течение 15 минут</p>
+
+            <div class="form-wrapper">
+                <form id="callback-form" onsubmit="event.preventDefault(); alert('Спасибо! Я свяжусь с вами в ближайшее время.');">
+                    <div class="form-row">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" placeholder="Иван" required />
+                    </div>
+                    <div class="form-row">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" placeholder="+7 (900) 000-00-00" required />
+                    </div>
+                    <div class="form-row">
+                        <label for="message">Опишите задачу</label>
+                        <textarea id="message" placeholder="Что нужно сделать?"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <button type="submit" class="btn btn-primary">Отправить заявку</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="contacts-block">
+                <div class="sub">Звоните или пишите — всегда на связи с 9:00 до 21:00</div>
+                <a href="tel:89087777721" class="contact-phone">8 (908) 777-77-21</a>
+                <div class="contact-meta">
+                    <span><strong>📍</strong> Иркутск</span>
+                    <span><strong>👤</strong> Самозанятый</span>
+                    <span><strong>📧</strong> itmaster@irk.ru</span>
+                    <span><strong>📋</strong> Договор, акты, счета, чеки</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ФУТЕР ===== -->
+    <footer style="padding: 24px 0; text-align: center; color: rgba(11,17,32,0.15); font-size: clamp(12px,1.2vw,14px); font-weight:300; border-top:1px solid rgba(255,255,255,0.12);">
+        <div class="container">
+            <p>© 2026 IT-Мастер Иркутск. Монтаж, ремонт, настройка сетевого оборудования. Самозанятый.</p>
+            <p style="margin-top: 6px; opacity:0.4;">Cisco, MikroTik, серверы, СКС, оптоволокно, IP-телефония</p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    THREE.JS
+    ============================================================ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
+    <script>
+        // ============================================================
+        //  1. ФОНОВАЯ 3D СЦЕНА
+        // ============================================================
+        (function backgroundScene() {
+            const container = document.getElementById('three-bg');
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f4fa);
+
+            const isMobile = window.innerWidth < 768;
+            const camera = new THREE.PerspectiveCamera(isMobile ? 50 : 45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, isMobile ? 1.0 : 1.5, isMobile ? 10 : 8);
+            camera.lookAt(0, 0, 0);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.2;
+            container.appendChild(renderer.domElement);
+
+            const ambient = new THREE.AmbientLight(0x8899cc, 0.6);
+            scene.add(ambient);
+
+            const light1 = new THREE.DirectionalLight(0xffffff, 2.0);
+            light1.position.set(5, 8, 6);
+            scene.add(light1);
+
+            const light2 = new THREE.DirectionalLight(0x8888ff, 1.0);
+            light2.position.set(-4, 3, 5);
+            scene.add(light2);
+
+            const light3 = new THREE.DirectionalLight(0x4466cc, 0.6);
+            light3.position.set(0, -4, -6);
+            scene.add(light3);
+
+            const pointLight = new THREE.PointLight(0x2563eb, 0.8, 20);
+            pointLight.position.set(0, 0, 6);
+            scene.add(pointLight);
+
+            const pointLight2 = new THREE.PointLight(0x7c3aed, 0.6, 20);
+            pointLight2.position.set(3, 1, 4);
+            scene.add(pointLight2);
+
+            const group = new THREE.Group();
+            scene.add(group);
+
+            const scale = isMobile ? 0.7 : 1;
+
+            const mainTorus = new THREE.Mesh(
+                new THREE.TorusGeometry(2.6 * scale, 0.08 * scale, 64, 80),
+                new THREE.MeshPhysicalMaterial({
+                    color: 0x2563eb,
+                    metalness: 0.2,
+                    roughness: 0.05,
+                    transparent: true,
+                    opacity: 0.2,
+                    emissive: 0x3b82f6,
+                    emissiveIntensity: 0.12,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.05,
+                    envMapIntensity: 2.5,
+                })
+            );
+            mainTorus.rotation.x = Math.PI / 3;
+            mainTorus.rotation.z = 0.2;
+            group.add(mainTorus);
+
+            const midTorus = new THREE.Mesh(
+                new THREE.TorusGeometry(2.0 * scale, 0.06 * scale, 48, 64),
+                new THREE.MeshPhysicalMaterial({
+                    color: 0x7c3aed,
+                    metalness: 0.2,
+                    roughness: 0.05,
+                    transparent: true,
+                    opacity: 0.18,
+                    emissive: 0x7c3aed,
+                    emissiveIntensity: 0.10,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.05,
+                    envMapIntensity: 2.5,
+                })
+            );
+            midTorus.rotation.x = Math.PI / 2.5;
+            midTorus.rotation.z = -0.3;
+            group.add(midTorus);
+
+            const smallTorus = new THREE.Mesh(
+                new THREE.TorusGeometry(1.4 * scale, 0.04 * scale, 32, 48),
+                new THREE.MeshPhysicalMaterial({
+                    color: 0xdb2777,
+                    metalness: 0.2,
+                    roughness: 0.05,
+                    transparent: true,
+                    opacity: 0.15,
+                    emissive: 0xdb2777,
+                    emissiveIntensity: 0.08,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.05,
+                    envMapIntensity: 2.5,
+                })
+            );
+            smallTorus.rotation.x = Math.PI / 4;
+            smallTorus.rotation.z = 0.5;
+            group.add(smallTorus);
+
+            const icoGeo = new THREE.IcosahedronGeometry(0.8 * scale, 1);
+            const icoMat = new THREE.MeshPhysicalMaterial({
+                color: 0x60a5fa,
+                metalness: 0.3,
+                roughness: 0.1,
+                transparent: true,
+                opacity: 0.12,
+                emissive: 0x3b82f6,
+                emissiveIntensity: 0.06,
+                wireframe: false,
+                clearcoat: 0.8,
+            });
+            const ico = new THREE.Mesh(icoGeo, icoMat);
+            ico.position.set(1.2 * scale, 0.6 * scale, 0.8 * scale);
+            group.add(ico);
+
+            const octGeo = new THREE.OctahedronGeometry(0.6 * scale);
+            const octMat = new THREE.MeshPhysicalMaterial({
+                color: 0xf472b6,
+                metalness: 0.1,
+                roughness: 0.1,
+                transparent: true,
+                opacity: 0.10,
+                emissive: 0xec4899,
+                emissiveIntensity: 0.05,
+                wireframe: false,
+            });
+            const oct = new THREE.Mesh(octGeo, octMat);
+            oct.position.set(-1.3 * scale, -0.4 * scale, 1.0 * scale);
+            group.add(oct);
+
+            const particleCount = isMobile ? 200 : 400;
+            const particleGeo = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            for (let i = 0; i < particleCount; i++) {
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI * 2;
+                const r = (2.8 + Math.random() * 3.0) * scale;
+                positions[i*3] = Math.cos(theta) * Math.sin(phi) * r;
+                positions[i*3+1] = Math.sin(theta) * Math.sin(phi) * r * 0.7;
+                positions[i*3+2] = Math.cos(phi) * r;
+                const col = new THREE.Color().setHSL(0.6 + Math.random()*0.3, 0.8, 0.5 + Math.random()*0.3);
+                colors[i*3] = col.r;
+                colors[i*3+1] = col.g;
+                colors[i*3+2] = col.b;
+            }
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const particleMat = new THREE.PointsMaterial({
+                size: 0.05 * scale,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.7,
+                blending: THREE.AdditiveBlending,
+                sizeAttenuation: true,
+            });
+            const particles = new THREE.Points(particleGeo, particleMat);
+            group.add(particles);
+
+            const sphereMat = new THREE.MeshPhysicalMaterial({
+                color: 0x88ccff,
+                metalness: 0.0,
+                roughness: 0.02,
+                transparent: true,
+                opacity: 0.08,
+                emissive: 0x4488ff,
+                emissiveIntensity: 0.15,
+                clearcoat: 1.0,
+            });
+            const sphereCount = 10;
+            const spheres = [];
+            for (let i = 0; i < sphereCount; i++) {
+                const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.15 * scale, 12, 12), sphereMat);
+                const angle = (i / sphereCount) * Math.PI * 2;
+                const radius = 2.4 * scale;
+                sphere.position.set(Math.cos(angle) * radius, Math.sin(angle * 0.8) * 0.8 * scale, Math.sin(angle) * radius * 0.7);
+                sphere.userData = { angle: angle, radius: radius, speed: 0.002 + Math.random() * 0.003 };
+                group.add(sphere);
+                spheres.push(sphere);
+            }
+
+            const cubeCount = isMobile ? 30 : 50;
+            const cubeMat = new THREE.MeshPhysicalMaterial({
+                color: 0x60a5fa,
+                metalness: 0.2,
+                roughness: 0.1,
+                transparent: true,
+                opacity: 0.05,
+                emissive: 0x3b82f6,
+                emissiveIntensity: 0.03,
+                clearcoat: 0.5,
+            });
+            for (let i = 0; i < cubeCount; i++) {
+                const size = (0.04 + Math.random() * 0.12) * scale;
+                const cube = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), cubeMat);
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI * 2;
+                const r = (2.0 + Math.random() * 3.2) * scale;
+                cube.position.set(
+                    Math.cos(theta) * Math.sin(phi) * r,
+                    Math.sin(theta) * Math.sin(phi) * r * 0.6,
+                    Math.cos(phi) * r
+                );
+                cube.rotation.set(Math.random() * 6, Math.random() * 6, Math.random() * 6);
+                cube.userData = { speed: 0.002 + Math.random() * 0.006 };
+                group.add(cube);
+            }
+
+            let time = 0;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.005;
+
+                mainTorus.rotation.y += 0.003;
+                midTorus.rotation.y -= 0.004;
+                smallTorus.rotation.y += 0.005;
+                ico.rotation.x += 0.003;
+                ico.rotation.y += 0.005;
+                oct.rotation.x += 0.004;
+                oct.rotation.y -= 0.003;
+
+                group.rotation.x = Math.sin(time * 0.08) * 0.03;
+                group.rotation.z = Math.cos(time * 0.06) * 0.02;
+
+                group.children.forEach(child => {
+                    if (child.isMesh && child.geometry.type === 'BoxGeometry') {
+                        child.rotation.x += child.userData.speed || 0.001;
+                        child.rotation.y += child.userData.speed || 0.001;
+                    }
+                });
+
+                spheres.forEach((sphere, idx) => {
+                    const data = sphere.userData;
+                    data.angle += data.speed;
+                    const r = data.radius;
+                    sphere.position.x = Math.cos(data.angle) * r;
+                    sphere.position.z = Math.sin(data.angle) * r * 0.7;
+                    sphere.position.y = Math.sin(data.angle * 0.8) * 0.8 * scale;
+                });
+
+                particleMat.size = 0.05 * scale * (1 + Math.sin(time * 0.6) * 0.3);
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+                const mobile = w < 768;
+                camera.aspect = w / h;
+                camera.position.set(0, mobile ? 1.0 : 1.5, mobile ? 10 : 8);
+                camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 0.3;
+                const y = (e.clientY / window.innerHeight - 0.5) * 0.3;
+                group.rotation.x = y * 0.05 + Math.sin(time * 0.08) * 0.03;
+                group.rotation.y = x * 0.08;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                const touch = e.touches[0];
+                if (touch) {
+                    const x = (touch.clientX / window.innerWidth - 0.5) * 0.2;
+                    const y = (touch.clientY / window.innerHeight - 0.5) * 0.2;
+                    group.rotation.x = y * 0.04 + Math.sin(time * 0.08) * 0.03;
+                    group.rotation.y = x * 0.06;
+                }
+            }, { passive: true });
+        })();
+
+        // ============================================================
+        //  2. 3D МОДЕЛИ В КАРТОЧКАХ
+        // ============================================================
+        (function cardModels() {
+            const wrappers = document.querySelectorAll('.card-3d');
+
+            wrappers.forEach(wrapper => {
+                const card = wrapper.closest('.service-card');
+                const modelType = card.dataset.model;
+                const rect = wrapper.getBoundingClientRect();
+                const w = rect.width || 300;
+                const h = rect.height || 200;
+                const isMobile = window.innerWidth < 768;
+
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color(0xf0f4fa);
+
+                const camera = new THREE.PerspectiveCamera(isMobile ? 45 : 35, w / h, 0.1, 100);
+                camera.position.set(0, isMobile ? 0.9 : 1.2, isMobile ? 4.2 : 4.5);
+
+                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(w, h);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1.2;
+                wrapper.appendChild(renderer.domElement);
+
+                scene.add(new THREE.AmbientLight(0x334466, 0.8));
+
+                const l1 = new THREE.DirectionalLight(0xffffff, 2.2);
+                l1.position.set(4, 5, 6);
+                l1.castShadow = true;
+                scene.add(l1);
+
+                const l2 = new THREE.DirectionalLight(0x8888ff, 1.2);
+                l2.position.set(-3, 2, 5);
+                scene.add(l2);
+
+                const l3 = new THREE.DirectionalLight(0x4466cc, 0.8);
+                l3.position.set(0, -3, -5);
+                scene.add(l3);
+
+                const pl = new THREE.PointLight(0x2563eb, 0.6, 10);
+                pl.position.set(0, 2, 3);
+                scene.add(pl);
+
+                const group = new THREE.Group();
+                scene.add(group);
+
+                const darkGlass = (color, opacity = 0.5) => new THREE.MeshPhysicalMaterial({
+                    color: color,
+                    metalness: 0.3,
+                    roughness: 0.2,
+                    transparent: true,
+                    opacity: opacity,
+                    emissive: color,
+                    emissiveIntensity: 0.08,
+                    clearcoat: 0.5,
+                    clearcoatRoughness: 0.3,
+                    envMapIntensity: 1.5,
+                    side: THREE.DoubleSide,
+                });
+
+                const darkSolid = (color, opacity = 0.7) => new THREE.MeshPhysicalMaterial({
+                    color: color,
+                    metalness: 0.4,
+                    roughness: 0.25,
+                    emissive: color,
+                    emissiveIntensity: 0.05,
+                    transparent: true,
+                    opacity: opacity,
+                    clearcoat: 0.3,
+                });
+
+                const brightLed = (color) => new THREE.MeshPhysicalMaterial({
+                    color: color,
+                    emissive: color,
+                    emissiveIntensity: 2.0,
+                    transparent: true,
+                    opacity: 0.95,
+                });
+
+                const darkMetal = (color) => new THREE.MeshPhysicalMaterial({
+                    color: color,
+                    metalness: 0.9,
+                    roughness: 0.15,
+                    transparent: true,
+                    opacity: 0.6,
+                });
+
+                const s = isMobile ? 1.0 : 0.9;
+
+                if (modelType === 'router') {
+                    const body = new THREE.Mesh(new THREE.BoxGeometry(1.8 * s, 0.6 * s, 1.4 * s), darkGlass(0x1a3a6a, 0.55));
+                    body.position.y = 0.3 * s;
+                    group.add(body);
+
+                    for (let i = -0.7 * s; i <= 0.7 * s; i += 0.7 * s) {
+                        const ant = new THREE.Mesh(new THREE.CylinderGeometry(0.025 * s, 0.04 * s, 0.8 * s, 8), darkSolid(0x1a3a6a, 0.7));
+                        ant.position.set(i, 0.8 * s, 0);
+                        ant.rotation.x = 0.2;
+                        ant.rotation.z = i * 0.2;
+                        group.add(ant);
+                        const tip = new THREE.Mesh(new THREE.SphereGeometry(0.05 * s, 8), darkSolid(0x2a5a9a, 0.8));
+                        tip.position.set(i, 1.2 * s + Math.abs(i) * 0.05, 0.1 * s);
+                        group.add(tip);
+                    }
+
+                    for (let i = -0.6 * s; i <= 0.6 * s; i += 0.3 * s) {
+                        const p = new THREE.Mesh(new THREE.BoxGeometry(0.05 * s, 0.05 * s, 0.1 * s), brightLed(0xff6633));
+                        p.position.set(i, 0.3 * s, -0.74 * s);
+                        group.add(p);
+                    }
+
+                    for (let i = -0.5 * s; i <= 0.5 * s; i += 0.25 * s) {
+                        const d = new THREE.Mesh(new THREE.CircleGeometry(0.035 * s, 8), brightLed(0x33ff88));
+                        d.position.set(i, 0.6 * s, 0.74 * s);
+                        group.add(d);
+                    }
+
+                    for (let i = -0.4 * s; i <= 0.4 * s; i += 0.08 * s) {
+                        const f = new THREE.Mesh(new THREE.BoxGeometry(0.015 * s, 0.04 * s, 0.5 * s), darkMetal(0x666688));
+                        f.position.set(i, 0.1 * s, 0.25 * s);
+                        group.add(f);
+                    }
+
+                } else if (modelType === 'server') {
+                    const rack = new THREE.Mesh(new THREE.BoxGeometry(1.6 * s, 2.6 * s, 1.4 * s), darkGlass(0x2a1a5a, 0.45));
+                    rack.position.y = 1.3 * s;
+                    group.add(rack);
+
+                    for (let i = 0; i < 5; i++) {
+                        const slot = new THREE.Mesh(new THREE.BoxGeometry(1.0 * s, 0.2 * s, 0.7 * s), darkSolid(0x3a2a7a, 0.5));
+                        slot.position.set(0, 0.25 * s + i * 0.45 * s, 0.45 * s);
+                        group.add(slot);
+                        const d = new THREE.Mesh(new THREE.CircleGeometry(0.03 * s, 8), brightLed(0x33ff88));
+                        d.position.set(0.5 * s, 0.25 * s + i * 0.45 * s, 0.84 * s);
+                        group.add(d);
+                        const h = new THREE.Mesh(new THREE.BoxGeometry(0.45 * s, 0.05 * s, 0.05 * s), darkMetal(0x666688));
+                        h.position.set(0, 0.25 * s + i * 0.45 * s, 0.84 * s);
+                        group.add(h);
+                    }
+
+                    for (let i = -0.35 * s; i <= 0.35 * s; i += 0.35 * s) {
+                        const fan = new THREE.Mesh(new THREE.CylinderGeometry(0.16 * s, 0.16 * s, 0.04 * s, 16), darkSolid(0x1a3a6a, 0.5));
+                        fan.position.set(i, 2.3 * s, 0.74 * s);
+                        fan.rotation.x = Math.PI / 2;
+                        group.add(fan);
+                        for (let j = 0; j < 4; j++) {
+                            const b = new THREE.Mesh(new THREE.BoxGeometry(0.12 * s, 0.015 * s, 0.025 * s), darkMetal(0x666688));
+                            b.position.set(i + Math.cos(j * Math.PI / 2) * 0.09 * s, 2.3 * s, 0.74 * s + Math.sin(j * Math.PI / 2) * 0.09 * s);
+                            group.add(b);
+                        }
+                    }
+
+                } else if (modelType === 'switch') {
+                    const sw = new THREE.Mesh(new THREE.BoxGeometry(2.0 * s, 0.5 * s, 1.6 * s), darkGlass(0x0a4a3a, 0.5));
+                    sw.position.y = 0.25 * s;
+                    group.add(sw);
+
+                    for (let row = 0; row < 2; row++) {
+                        for (let i = -0.75 * s; i <= 0.75 * s; i += 0.14 * s) {
+                            const p = new THREE.Mesh(new THREE.BoxGeometry(0.06 * s, 0.025 * s, 0.06 * s), brightLed(0xff8844));
+                            p.position.set(i, 0.2 * s + row * 0.2 * s, 0.84 * s);
+                            group.add(p);
+                        }
+                    }
+
+                    for (let i = -0.6 * s; i <= 0.6 * s; i += 0.3 * s) {
+                        const d = new THREE.Mesh(new THREE.CircleGeometry(0.03 * s, 8), brightLed(0x33ff88));
+                        d.position.set(i, 0.5 * s, 0.84 * s);
+                        group.add(d);
+                    }
+
+                    for (let i = -0.7 * s; i <= 0.7 * s; i += 0.06 * s) {
+                        const v = new THREE.Mesh(new THREE.BoxGeometry(0.015 * s, 0.008 * s, 0.35 * s), darkMetal(0x666688));
+                        v.position.set(i, 0.05 * s, 0);
+                        group.add(v);
+                    }
+
+                } else if (modelType === 'camera') {
+                    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.6 * s, 0.7 * s, 0.6 * s, 16), darkGlass(0x5a1a2a, 0.55));
+                    base.position.y = 0.35 * s;
+                    group.add(base);
+
+                    const lb = new THREE.Mesh(new THREE.CylinderGeometry(0.3 * s, 0.35 * s, 0.3 * s, 16), darkSolid(0x6a2a3a, 0.6));
+                    lb.position.set(0, 0.7 * s, 0.5 * s);
+                    lb.rotation.x = 0.3;
+                    group.add(lb);
+
+                    const gl = new THREE.Mesh(new THREE.CircleGeometry(0.25 * s, 16), new THREE.MeshPhysicalMaterial({
+                        color: 0x4488ff,
+                        metalness: 0.0,
+                        roughness: 0.02,
+                        transparent: true,
+                        opacity: 0.6,
+                        envMapIntensity: 3.0,
+                        emissive: 0x4488ff,
+                        emissiveIntensity: 0.3,
+                    }));
+                    gl.position.set(0, 0.85 * s, 0.68 * s);
+                    gl.rotation.x = 0.3;
+                    group.add(gl);
+
+                    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.26 * s, 0.025 * s, 8, 16), darkMetal(0x666688));
+                    ring.position.set(0, 0.85 * s, 0.55 * s);
+                    ring.rotation.x = 0.3 + Math.PI / 2;
+                    group.add(ring);
+
+                    for (let i = -0.25 * s; i <= 0.25 * s; i += 0.12 * s) {
+                        const ir = new THREE.Mesh(new THREE.CircleGeometry(0.025 * s, 6), brightLed(0xff3333));
+                        ir.position.set(i, 0.35 * s, 0.7 * s);
+                        group.add(ir);
+                    }
+
+                } else if (modelType === 'pc') {
+                    const pc = new THREE.Mesh(new THREE.BoxGeometry(1.2 * s, 1.8 * s, 0.9 * s), darkGlass(0x1a2a5a, 0.4));
+                    pc.position.y = 0.9 * s;
+                    group.add(pc);
+
+                    const side = new THREE.Mesh(new THREE.BoxGeometry(0.8 * s, 1.2 * s, 0.025 * s), new THREE.MeshPhysicalMaterial({
+                        color: 0x4488ff,
+                        metalness: 0.1,
+                        roughness: 0.1,
+                        transparent: true,
+                        opacity: 0.12,
+                        envMapIntensity: 3.0,
+                        emissive: 0x4488ff,
+                        emissiveIntensity: 0.05,
+                    }));
+                    side.position.set(0, 0.9 * s, 0.5 * s);
+                    group.add(side);
+
+                    const mb = new THREE.Mesh(new THREE.BoxGeometry(0.7 * s, 0.7 * s, 0.025 * s), darkSolid(0x2a6a4a, 0.3));
+                    mb.position.set(0, 0.9 * s, 0.45 * s);
+                    group.add(mb);
+
+                    const gpu = new THREE.Mesh(new THREE.BoxGeometry(0.35 * s, 0.1 * s, 0.18 * s), darkSolid(0x5a1a4a, 0.4));
+                    gpu.position.set(0.25 * s, 0.55 * s, 0.45 * s);
+                    group.add(gpu);
+
+                    for (let i = -0.35 * s; i <= 0.35 * s; i += 0.35 * s) {
+                        const f = new THREE.Mesh(new THREE.CircleGeometry(0.16 * s, 12), darkSolid(0x1a3a6a, 0.3));
+                        f.position.set(i, 1.6 * s, 0.5 * s);
+                        group.add(f);
+                    }
+
+                } else if (modelType === 'accesspoint') {
+                    const ap = new THREE.Mesh(new THREE.CylinderGeometry(0.7 * s, 0.7 * s, 0.25 * s, 24), darkGlass(0x5a4a1a, 0.5));
+                    ap.position.y = 0.12 * s;
+                    group.add(ap);
+
+                    for (let i = -0.5 * s; i <= 0.5 * s; i += 0.5 * s) {
+                        const a = new THREE.Mesh(new THREE.CylinderGeometry(0.02 * s, 0.03 * s, 0.5 * s, 6), darkSolid(0x5a4a1a, 0.6));
+                        a.position.set(i, 0.35 * s, 0);
+                        a.rotation.z = i * 0.3;
+                        group.add(a);
+                    }
+
+                    const r1 = new THREE.Mesh(new THREE.TorusGeometry(0.45 * s, 0.015 * s, 8, 24), brightLed(0x33ff88));
+                    r1.position.y = 0.18 * s;
+                    group.add(r1);
+
+                    const r2 = new THREE.Mesh(new THREE.TorusGeometry(0.4 * s, 0.012 * s, 8, 24), brightLed(0x4488ff));
+                    r2.position.y = 0.14 * s;
+                    group.add(r2);
+
+                    const dot = new THREE.Mesh(new THREE.CircleGeometry(0.06 * s, 8), darkSolid(0x5a4a1a, 0.5));
+                    dot.position.set(0, 0.12 * s, 0.6 * s);
+                    group.add(dot);
+                }
+
+                let angle = 0;
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    angle += 0.008;
+                    group.rotation.y = angle;
+                    group.position.y = Math.sin(angle * 0.5) * 0.02 * s;
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+                const ro = new ResizeObserver(() => {
+                    const r = wrapper.getBoundingClientRect();
+                    const w2 = r.width || 300;
+                    const h2 = r.height || 200;
+                    const mobile2 = window.innerWidth < 768;
+                    camera.aspect = w2 / h2;
+                    camera.position.set(0, mobile2 ? 0.9 : 1.2, mobile2 ? 4.2 : 4.5);
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(w2, h2);
+                });
+                ro.observe(wrapper);
+            });
+        })();
+
+        // ============================================================
+        //  3. СЛАЙДЕР
+        // ============================================================
+        (function initSlider() {
+            const track = document.getElementById('sliderTrack');
+            const slides = track.querySelectorAll('.slider-slide');
+            const total = slides.length;
+            let current = 0;
+            let isAnimating = false;
+            let autoplayTimer = null;
+
+            // Создаём точки
+            const dotsContainer = document.getElementById('sliderDots');
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('data-index', i);
+                dot.addEventListener('click', () => goTo(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            function goTo(index) {
+                if (isAnimating || index === current) return;
+                isAnimating = true;
+                current = index;
+                track.style.transform = `translateX(-${current * 100}%)`;
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+                setTimeout(() => { isAnimating = false; }, 700);
+                resetAutoplay();
+            }
+
+            function next() {
+                goTo((current + 1) % total);
+            }
+
+            function prev() {
+                goTo((current - 1 + total) % total);
+            }
+
+            function resetAutoplay() {
+                if (autoplayTimer) {
+                    clearInterval(autoplayTimer);
+                    autoplayTimer = null;
+                }
+                autoplayTimer = setInterval(next, 5000);
+            }
+
+            // Кнопки
+            document.getElementById('sliderNext').addEventListener('click', next);
+            document.getElementById('sliderPrev').addEventListener('click', prev);
+
+            // Touch support
+            let startX = 0;
+            let isDragging = false;
+
+            track.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            }, { passive: true });
+
+            track.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const diff = startX - e.touches[0].clientX;
+                if (Math.abs(diff) > 40) {
+                    isDragging = false;
+                    if (diff > 0) next();
+                    else prev();
+                }
+            }, { passive: true });
+
+            track.addEventListener('touchend', () => {
+                isDragging = false;
+            }, { passive: true });
+
+            // Запускаем автоплей
+            resetAutoplay();
+
+            // Останавливаем автоплей при наведении
+            const wrapper = track.closest('.slider-wrapper');
+            wrapper.addEventListener('mouseenter', () => {
+                if (autoplayTimer) {
+                    clearInterval(autoplayTimer);
+                    autoplayTimer = null;
+                }
+            });
+            wrapper.addEventListener('mouseleave', resetAutoplay);
+
+            // Видео — автозапуск только при видимости
+            const videos = track.querySelectorAll('video');
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target;
+                    if (entry.isIntersecting) {
+                        video.play().catch(() => {});
+                    } else {
+                        video.pause();
+                    }
+                });
+            }, { threshold: 0.3 });
+            videos.forEach(v => videoObserver.observe(v));
+        })();
+
+        // ============================================================
+        //  4. АНИМАЦИИ ПРИ СКРОЛЛЕ
+        // ============================================================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const delay = Array.from(entry.target.parentElement.children).indexOf(entry.target) * 0.05;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay * 1000);
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -20px 0px'
+        });
+
+        document.querySelectorAll(
+            '.service-card, .pricing-item, .client-item, .docs-list span, .stat-item, .review-item, .form-wrapper, .contacts-block'
+        ).forEach(el => {
+            observer.observe(el);
+        });
+
+        // ============================================================
+        //  5. ШАПКА
+        // ============================================================
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 30);
+        }, { passive: true });
+
+        // ============================================================
+        //  6. ПЛАВНЫЙ СКРОЛЛ
+        // ============================================================
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - 70;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ============================================================
+        //  7. LAZY LOAD
+        // ============================================================
+        document.querySelectorAll('.case-image, .slider-slide img, .slider-slide video source').forEach(el => {
+            if (el.tagName === 'IMG') el.loading = 'lazy';
+        });
+    </script>
+</body>
+</html>
+```
